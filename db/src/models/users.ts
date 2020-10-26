@@ -1,10 +1,15 @@
 import {
     DataTypes,
-    Model
+    Association,
+    Model,
+    HasManyCreateAssociationMixin,
+    HasManyAddAssociationMixin,
+    HasManyGetAssociationsMixin
 } from "sequelize";
 import bcrypt from "bcryptjs"
 
 import sequelize from "../db/connection";
+import Token from "./tokens";
 
 class User extends Model {
     public id!: number;
@@ -12,6 +17,13 @@ class User extends Model {
     public name!: string;
     public password!: string;
     //
+    public createToken!: HasManyCreateAssociationMixin<Token>;
+    public addToken!: HasManyAddAssociationMixin<Token, number>;
+    public getTokens!: HasManyGetAssociationsMixin<Token>;
+    //
+    public static associations: {
+       tokens: Association<User, Token>;
+    }
 }
 
 User.init({
@@ -42,7 +54,7 @@ User.init({
             }
         }
     },
-    tableName: "user",
+    tableName: "users",
     sequelize
 });
 
