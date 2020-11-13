@@ -1,0 +1,9 @@
+{
+  "diff": true,
+  "slow": 750,
+  "watch": true,
+  "retries": 3,
+  "reporter": "nyan",
+  "timeout": 3000
+
+}
