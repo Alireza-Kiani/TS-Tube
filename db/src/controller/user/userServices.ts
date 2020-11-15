@@ -1,10 +1,13 @@
 import User from "../../models/users";
-import {UserType} from "../../types/user"
 import bcrypt from "bcryptjs"
 
 
 class UserServices {
-    createUser = async (input: UserType): Promise<UserType> => {
+    createUser = async (input: {
+        name: string,
+        username: string,
+        password: string
+    }): Promise<User> => {
         return await User.create(input);
     }
 
@@ -23,6 +26,19 @@ class UserServices {
             return user;
         } else {
             throw ({error: "Wrong password"});
+        }
+    }
+
+    redButton = async () => {
+        if(User.sequelize?.config.database === "ts-tube-test") {
+            try {
+                await User.destroy({
+                    where: {},
+                    truncate: true
+                });
+            } catch (e) {
+                console.log(e)
+            }
         }
     }
 }

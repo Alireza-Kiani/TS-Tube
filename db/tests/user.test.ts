@@ -1,49 +1,65 @@
-import { expect } from 'chai';
+import {expect, assert} from 'chai';
 import 'mocha';
-import done from "chai"
-
-import app from "../src/app";
 import request from "supertest";
 
+import app from "../src/app";
+import UserServices from "../src/controller/user/userServices";
 
-import sinon from 'sinon'
-sinon.stub(console, "log")
+
+//import sinon from 'sinon'
+//sinon.stub(console, "log")
 
 describe("Sign up", () => {
-
-   before(function() {
-
-   });
-
-   after(function() {
-
-   });
-
-   it('invalid input', async () => {
-         await request(app)
-         .post("/user/create")
-         .send()
-         .expect(400);
-   });
-
-   it('duplicate', (done) => {
-         request(app).post("/user/create")
-         .send({
+    //
+    before( async () => {
+        await UserServices.redButton();
+    });
+    //
+    it("successful", async () => {
+        const response = await request(app).post("/user/create")
+        .send({
              name: "Kiarash",
              username: "kiarash",
              password: "1234"
-         }).then((response) => {
-             expect(response.status).to.equal(400);
-             done()
-         })
-   });
+        });
+        assert.equal(201, response.status);
+    });
+
+    it('invalid input', async () => {
+        let response: any;
+        //
+        response = await request(app).post("/user/create")
+            .send({
+
+            });
+        assert.equal(400, response.status);
+    });
+
+    it('duplicated user', async () => {
+        const response = await request(app).post("/user/create")
+        .send({
+             name: "Kiarash",
+             username: "kiarash",
+             password: "1234"
+        });
+        assert.equal(400, response.status);
+    });
 });
 
 describe("Log in", () => {
-    it('invalid input', async () => {
-             await request(app)
-             .post("/user/find")
-             .send()
-             .expect(400);
-       });
-})
+    it("successful", () => {
+
+    });
+
+    it("invalid input", () => {
+
+    });
+
+    it("user not found", () => {
+
+    });
+
+    it("wrong password", () => {
+
+    });
+});
