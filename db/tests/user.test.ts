@@ -47,19 +47,59 @@ describe("Sign up", () => {
 });
 
 describe("Log in", () => {
-    it("successful", () => {
+    //
+    before( async () => {
+        await UserServices.redButton();
+        await UserServices.createUser({
+            name: "Kiarash",
+            username: "kiarash",
+            password: "1234"
+        })
+    });
+    //
+    it("successful username", async () => {
+        const response = await request(app).post("/user/find")
+       .send({
+           input: "kiarash",
+           password: "1234"
+       });
+       assert.equal(response.status, 200);
+       assert.equal(response.body.name, "Kiarash");
+    });
+
+    it("successful email", () => {
 
     });
 
-    it("invalid input", () => {
+    it("invalid input", async () => {
+        const response = await request(app).post("/user/find")
+        .send({
+
+        });
+        assert.equal(response.status, 400);
+        expect(response.body.name).to.be.undefined;
+    });
+
+    it("user not found", async () => {
+        const response = await request(app).post("/user/find")
+        .send({
+            input: "dummy",
+            password: "1234"
+        })
+
+        assert.equal(response.status, 400);
+        expect(await JSON.parse(response.text).error).to.equal("user not found")
 
     });
 
-    it("user not found", () => {
+    it("wrong password", async () => {
+        const response = await request(app).post("/user/find")
+        .send({
+            input: "kiarash",
+            password: "12345"
+        });
 
-    });
-
-    it("wrong password", () => {
-
+        assert.equal(response.status, 400);
+        expect(await JSON.parse(response.text).error).to.equal("Wrong password")
     });
 });
