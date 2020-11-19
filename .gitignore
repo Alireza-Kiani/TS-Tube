@@ -3,3 +3,4 @@
 /views
 /auth/node_modules
 /db/node_modules
+/socket/node_modules

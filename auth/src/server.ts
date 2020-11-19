@@ -1,7 +1,12 @@
-import app from "./app";
+import socket from "socket.io-client";
 
-const port = process.env.PORT;
+//@ts-ignore
+const io = socket("ws://localhost:8081");
 
-app.listen(port, () => {
-    console.log(`Server is up and running on port ${port}`)
-});
+
+
+io.emit("test", {test: "do"})
+
+io.on("res", (ress: any) => {
+    console.log(ress);
+})

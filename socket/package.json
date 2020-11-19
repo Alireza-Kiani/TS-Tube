@@ -1,5 +1,5 @@
 {
-  "name": "auth",
+  "name": "socket",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,8 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/socket.io": "^2.1.11",
     "dotenv": "^8.2.0",
-    "socket.io-client": "^3.0.3"
+    "socket.io": "^3.0.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.6",
