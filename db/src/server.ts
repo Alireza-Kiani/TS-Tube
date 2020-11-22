@@ -1,7 +1,23 @@
-import app from "./app";
+import socket from "socket.io-client";
 
-const port = process.env.PORT;
+import sequelize from "./db/connection";
+import "./db/relation";
 
-app.listen(port,async () => {
-    console.log(`Server is up and running on port ${port}`);
+sequelize.sync().then(async ()=> {
+    console.log("Database connected");
+}).catch((error) => {
+    console.log(error)
 });
+
+// @ts-ignore
+export const io = socket("ws://localhost:8081");
+
+io.emit("serverConnected", "db", (err: any) => {
+    if (!err) {
+        console.log("Server connected to socket server");
+    } else {
+        console.log(err)
+    }
+});
+
+import "./routes/routes";

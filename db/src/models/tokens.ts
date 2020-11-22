@@ -11,9 +11,9 @@ import User from "./users";
 
 class Token extends Model {
     public id!: number;
-    public refreshToken!: string;
+    public token!: string;
     //
-    public setUser!: BelongsToSetAssociationMixin<User, number | null >;
+    public setUser!: BelongsToSetAssociationMixin<User, number | null>;
     public getUser!: BelongsToGetAssociationMixin<User>;
 }
 
@@ -27,7 +27,7 @@ Token.init({
         allowNull: false,
     }
 }, {
-    tableName: "token",
+    tableName: "tokens",
     sequelize
 })
 

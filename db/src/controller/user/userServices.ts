@@ -16,7 +16,8 @@ class UserServices {
         type: string,
         password: string
     }): Promise<User | null> => {
-        const user: User | null = await User.findOne({where: {[input.type]: input.input}})
+        // const user: User | null = await User.findOne({where: {[input.type]: input.input}})
+        const user: User | null = await User.findOne({where: {username: input.input}})
 
         if (!user) {
             throw ({error: "user not found"});

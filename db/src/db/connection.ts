@@ -1,5 +1,6 @@
 import {Sequelize} from "sequelize";
 
+
 const connection: {
     host: string,
     username: string,

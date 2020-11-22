@@ -1,12 +1,10 @@
-import {Router} from "express";
+import {io} from "../server";
 import UserController from "../controller/user/userController";
 
-const userRouter = Router();
+io.on("signUpRes", async (input: any, cb: any) => {
+    await UserController.addUser(input, cb)
+});
 
-userRouter.post("/create", UserController.addUser);
-
-userRouter.post("/find", UserController.findUser);
-
-userRouter.patch("/edit", UserController.editUser);
-
-export default userRouter;
+io.on("logInRes", async (input: any, cb: any) => {
+    await UserController.findUser(input, cb)
+});

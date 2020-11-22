@@ -1,9 +1,0 @@
-{
-  "diff": true,
-  "slow": 750,
-  "watch": true,
-  "retries": 1,
-  "reporter": "spec",
-  "timeout": 5000
-
-}
