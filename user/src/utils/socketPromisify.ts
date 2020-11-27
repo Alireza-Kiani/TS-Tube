@@ -1,8 +1,8 @@
-import {io} from "../services/socket";
+import { socket } from "../services/socket";
 
 export const emit = (event: string, value: any) => {
     return new Promise((resolve, reject) => {
-        io.emit(event, value, (arg: any, err: any) => {
+        socket.emit(event, value, (arg: any, err: any) => {
             if (err) {
                 reject(err);
             }

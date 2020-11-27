@@ -1,4 +1,4 @@
-import socket from "socket.io-client";
+import { io } from "socket.io-client";
 
 import sequelize from "./db/connection";
 import "./db/relation";
@@ -9,10 +9,9 @@ sequelize.sync().then(async ()=> {
     console.log(error)
 });
 
-// @ts-ignore
-export const io = socket("ws://localhost:8081");
+export const socket = io("ws://localhost:8081");
 
-io.emit("serverConnected", "db", (err: any) => {
+socket.emit("serverConnected", "db", (err: any) => {
     if (!err) {
         console.log("Server connected to socket server");
     } else {

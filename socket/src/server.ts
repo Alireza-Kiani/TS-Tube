@@ -1,9 +1,8 @@
-import ioserver, { Socket } from 'socket.io';
+import ioserver, { Socket, Server } from 'socket.io';
 
-const port = process.env.PORT;
+const port = parseInt(process.env.PORT!);
 
-// @ts-ignore
-const io = ioserver(port);
+const io = new Server(port);
 
 io.on('connection', (socket: Socket) => {
     console.log("Socket server is up and running");

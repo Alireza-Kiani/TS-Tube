@@ -1,9 +1,8 @@
-import socket from "socket.io-client";
+import { io } from "socket.io-client";
 
-// @ts-ignore
-const io = socket("ws://localhost:8081");
+const socket = io("ws://localhost:8081");
 
-io.emit("serverConnected", "user", (err: any) => {
+socket.emit("serverConnected", "user", (err: any) => {
     if (!err) {
         console.log("Server connected to socket server");
     } else {
@@ -11,4 +10,4 @@ io.emit("serverConnected", "user", (err: any) => {
     }
 });
 
-export {io};
+export { socket };

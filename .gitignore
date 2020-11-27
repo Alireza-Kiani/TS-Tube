@@ -4,3 +4,6 @@
 /auth/node_modules
 /db/node_modules
 /socket/node_modules
+/user/node_modules
+/node_modules
+node_modules
